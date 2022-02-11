@@ -60,10 +60,18 @@ body{
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    min-height: 90%;
+    margin-bottom: 2rem;
 }
 #gamelevels > h2{
     font-size: 3rem;
     margin-bottom: 1rem;
+}
+#footer{
+    width: 100%;
+    text-align: center;
+    padding: .5rem 0;
+    background-color: var(--black);
 }
 #levels{
     border: 2px solid var(--white);
@@ -100,6 +108,23 @@ body{
     border-radius: 10px;
     background-color: var(--black);
 }
+#levels > div.active{
+    background-color: var(--black);
+}
+#levels > div.active p{
+    color: var(--white);
+    text-shadow: var(--backlight);
+}
+
+#levels > div.active:hover{
+    background-color: var(--white);
+}
+#levels > div.active:hover p{
+    color: var(--black);
+}
+#levels > div.active i{
+    opacity: 0;
+}
 #levels i{
     font-size: 4rem;
     position: absolute;
@@ -112,4 +137,12 @@ body{
     font-size: 4rem;
     z-index: 2;
     text-shadow: 0 .2rem .2rem var(--black);
+}
+
+
+@media (max-width: 400px) {
+    #levels{
+        width: 96%;
+        padding: .5rem;
+    }
 }
