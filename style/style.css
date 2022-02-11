@@ -98,6 +98,7 @@ body{
     color: var(--black);
 }
 #levels > div{
+    font-size: 4rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -111,15 +112,17 @@ body{
 #levels > div.active{
     background-color: var(--black);
 }
-#levels > div.active p{
+#levels > div.play{
+    background-color: var(--white);
+}
+#levels > div.active{
     color: var(--white);
     text-shadow: var(--backlight);
 }
-
 #levels > div.active:hover{
     background-color: var(--white);
 }
-#levels > div.active:hover p{
+#levels > div.active:hover{
     color: var(--black);
 }
 #levels > div.active i{
@@ -133,10 +136,51 @@ body{
     opacity: .6;
     z-index: 1;
 }
-#levels p{
+#levels{
     font-size: 4rem;
     z-index: 2;
     text-shadow: 0 .2rem .2rem var(--black);
+}
+#game{
+    position: relative;
+    margin: 1rem auto;
+    border: 2px solid var(--white);
+}
+#ping{
+    position: absolute;
+    bottom: 1%;left: 50%;
+    transform: translateX(-50%);
+    width: 20%;
+    height: 2%;
+    background-color: #948d8e;
+    border: 1px solid var(--black);
+}
+#bol{
+    position: absolute;
+    bottom: 3%;left: 50%;
+    border: 1px solid var(--black);
+    transform: translateX(-50%);
+    width: 3%;
+    height: 3%;
+    border-radius: 50%;
+    background-color: var(--white);
+}
+#levels > div.play{
+    color: var(--black);
+}
+
+@media (orientation:portrait) {
+    #game{
+        height: 90vw;
+        width: 80vw;
+    }
+}
+
+@media (orientation:landscape) {
+    #game{
+        height: 80vh;
+        width: 70vh;
+    }
 }
 
 
