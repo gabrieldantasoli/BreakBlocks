@@ -135,6 +135,7 @@ body{
     transform: translate(-50%,-50%);
     opacity: .6;
     z-index: 1;
+    pointer-events: none;
 }
 #levels{
     font-size: 4rem;
@@ -167,6 +168,13 @@ body{
 }
 #levels > div.play{
     color: var(--black);
+}
+#blocks{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 50%;
+    background-color: #72BDD4;
 }
 
 @media (orientation:portrait) {
