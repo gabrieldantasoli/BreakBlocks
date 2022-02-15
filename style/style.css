@@ -14,7 +14,12 @@
     --smalltext: 1rem;
 }
 
+html{
+    overflow-x: hidden;
+}
+
 body{
+    overflow-x: hidden;
     background-color: var(--backdark);
 }
 
@@ -147,6 +152,17 @@ body{
     margin: 1rem auto;
     border: 2px solid var(--white);
 }
+#gamesection{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.hearts i{
+    color: red;
+    font-size: 2rem;
+    text-shadow: 0  0 4px red;
+    margin-left: .5rem;
+}
 #ping{
     position: absolute;
     bottom: 1%;left: 50%;
@@ -173,7 +189,6 @@ body{
     position: relative;
     width: 100%;
     height: 50%;
-    background-color: #72BDD4;
 }
 #blocks > div{
     position: absolute;
