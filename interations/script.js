@@ -96,9 +96,10 @@ function controlbol() {
             if (!checked) {
                 if ((posboly+heightbol >= 100-parseInt(item.style.top.replace('%','')/2)) && ((posbolx+widthbol/2 >= parseInt(item.style.left.replace('%',''))) && ((posbolx-widthbol/2 <= parseInt(item.style.left.replace('%',''))+10)))){
                     blockdiv.removeChild(item) ;
-                    dirboly*=-1
+                    dirboly *= -1 ;
                     checked = true ;
-                } ;
+                    blocks -= 1;
+                }
             }
         }) ;
     } ;
