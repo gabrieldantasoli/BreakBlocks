@@ -9,9 +9,9 @@ var bol = document.querySelector('#bol') ;
 var bar = document.querySelector('#ping') ;
 var withbol ;
 var lifes ;
-
-// Blocks
 var blockdiv = document.querySelector('#blocks') ;
+var checked ;
+// Blocks
 
 //velocity
 var velbar ,dirbar ;
@@ -45,7 +45,7 @@ function changeActive(e) {
 
 // game starts
 function controlbar() {
-    if (playing) {
+    //if (playing) {
         posbarx += velbar * dirbar ;
         if (withbol) {
             posbolx = posbarx
@@ -65,7 +65,7 @@ function controlbar() {
         if (withbol) {
             bol.style.left = posbolx+'%' ;
         } ;
-    } ;
+    //} ;
 } ;
 
 function controlbol() {
@@ -89,19 +89,35 @@ function controlbol() {
         playing = false ;
     } ;
 
+    //Breaking blocks
+    if (posboly+heightbol >= 50) {
+        let div = document.querySelectorAll('#blocks div') ;
+        div.forEach(item => {
+            if (!checked) {
+                if ((posboly+heightbol >= 100-parseInt(item.style.top.replace('%','')/2)) && ((posbolx+widthbol/2 >= parseInt(item.style.left.replace('%',''))) && ((posbolx-widthbol/2 <= parseInt(item.style.left.replace('%',''))+10)))){
+                    blockdiv.removeChild(item) ;
+                    dirboly*=-1
+                    checked = true ;
+                } ;
+            }
+        }) ;
+    } ;
+
     // bar colisions
     if ((posbolx+(widthbol/2) >= posbarx-(barWidth/2) && posboly <= 3) && (posbolx-(widthbol/2) <= posbarx+(barWidth/2))) {
         dirboly *= -1 ;
-        dirbolx = (posbolx-posbarx)/6
+        checked = false ;
+        dirbolx = (posbolx-posbarx)/6 ;
     } ;
 
     bol.style.left = posbolx+'%' ;
     bol.style.bottom = posboly+'%' ;
 } ;
 
+
 function game() {
+    controlbar();
     if (playing) {
-        controlbar() ;
         if (!withbol) {
             controlbol() ;
         }
@@ -145,7 +161,7 @@ function start() {
     dirboly = 0 ;
     dirbolx = 0 ;
     withbol = true ;
-    blocks = 100
+    blocks = 100 ;
     setBlocks(blocks) ;
     lifes = 5 ;
     colorbol = 'var(--white)' ;
