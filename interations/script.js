@@ -95,19 +95,29 @@ function controlbol() {
         let divs = document.querySelectorAll('#blocks div') ;
         for (var i = 0;i<blocks;i++) {
             if (posboly+heightbol >= 100-parseInt(divs[i].style.top.replace('%','')/2+5) && posboly <= 100-parseInt(divs[i].style.top.replace('%','')/2)) {
-                if (posbolx+widthbol/2 >= parseInt(divs[i].style.left.replace('%','')) && posbolx-widthbol/2 <= parseInt(divs[i].style.left.replace('%',''))+10) {
+                if (Math.floor(posbolx+widthbol/2) == parseInt(divs[i].style.left.replace('%',''))) {
+                    blockdiv.removeChild(divs[i])
+                    dirbolx *= -1
+                    blocks -= 1
+                    break
+                }
+                else if (Math.floor(posbolx-widthbol/2) == parseInt(divs[i].style.left.replace('%',''))+10) {
+                    blockdiv.removeChild(divs[i])
+                    dirbolx *= -1
+                    blocks -= 1
+                    break
+                }else if (posbolx+widthbol/2 >= parseInt(divs[i].style.left.replace('%','')) && posbolx-widthbol/2 <= parseInt(divs[i].style.left.replace('%',''))+10) {
                     blockdiv.removeChild(divs[i])
                     dirboly *= -1
                     blocks -= 1
                     break
                 }
-                
             } ;
         }
     } ;
 
 
-
+ 
     // bar colisions
     if ((posbolx+(widthbol/2) >= posbarx-(barWidth/2) && posboly <= 3) && (posbolx-(widthbol/2) <= posbarx+(barWidth/2))) {
         dirboly *= -1 ;
@@ -195,13 +205,14 @@ function start() {
 } ;
 
 function startGame() {
-    if (lifes > 0) {
+    if (lifes > 0 && withbol) {
         dirboly = 1 ;
         withbol = false ;
         playing = true ;
-    }else {
+    }else if (withbol) {
         alert('voce perdeu!')
-    }
+    } ;
+    
 } ;
 
 // Starts Setting the blocks
