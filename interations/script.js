@@ -11,7 +11,8 @@ var withbol ;
 var lifes ;
 var blockdiv = document.querySelector('#blocks') ;
 var checked ;
-// Blocks
+var revertdir ;
+var listblocks = [] ;
 
 //velocity
 var velbar ,dirbar ;
@@ -91,18 +92,21 @@ function controlbol() {
 
     //Breaking blocks
     if (posboly+heightbol >= 50) {
-        let div = document.querySelectorAll('#blocks div') ;
-        div.forEach(item => {
-            if (!checked) {
-                if ((posboly+heightbol >= 100-parseInt(item.style.top.replace('%','')/2)) && ((posbolx+widthbol/2 >= parseInt(item.style.left.replace('%',''))) && ((posbolx-widthbol/2 <= parseInt(item.style.left.replace('%',''))+10)))){
-                    blockdiv.removeChild(item) ;
-                    dirboly *= -1 ;
-                    checked = true ;
-                    blocks -= 1;
+        let divs = document.querySelectorAll('#blocks div') ;
+        for (var i = 0;i<blocks;i++) {
+            if (posboly+heightbol >= 100-parseInt(divs[i].style.top.replace('%','')/2+5) && posboly <= 100-parseInt(divs[i].style.top.replace('%','')/2)) {
+                if (posbolx+widthbol/2 >= parseInt(divs[i].style.left.replace('%','')) && posbolx-widthbol/2 <= parseInt(divs[i].style.left.replace('%',''))+10) {
+                    blockdiv.removeChild(divs[i])
+                    dirboly *= -1
+                    blocks -= 1
+                    break
                 }
-            }
-        }) ;
+                
+            } ;
+        }
     } ;
+
+
 
     // bar colisions
     if ((posbolx+(widthbol/2) >= posbarx-(barWidth/2) && posboly <= 3) && (posbolx-(widthbol/2) <= posbarx+(barWidth/2))) {
@@ -163,8 +167,12 @@ function start() {
     dirbolx = 0 ;
     withbol = true ;
     blocks = 100 ;
+    for (var i = 0;i<blocks;i++) {
+        listblocks.push(1) ;
+    } ;
     setBlocks(blocks) ;
     lifes = 5 ;
+    revertdir = 1
     colorbol = 'var(--white)' ;
     document.addEventListener('keyup',function() {
         dirbar = 0 ;
