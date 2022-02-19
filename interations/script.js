@@ -137,7 +137,11 @@ function game() {
             controlbol() ;
         }
     } ;
-    frames = requestAnimationFrame(game) ;
+    if (blocks > 0) {
+        frames = requestAnimationFrame(game) ;
+    }else{
+        alert('você ganhou!')
+    }
 } ;
 
 function replacebol() {
@@ -187,6 +191,31 @@ function start() {
     document.addEventListener('keyup',function() {
         dirbar = 0 ;
     }) ;
+
+
+    //temporary touch events
+    document.getElementById('left').addEventListener('touchend',function() {
+        dirbar = 0 ;
+    }) ;
+    document.getElementById('right').addEventListener('touchend',function() {
+        dirbar = 0 ;
+    }) ;
+
+    document.getElementById('tempory').addEventListener('touchstart',function(e) {
+        key = e.target.id;
+        if (key == 'left') {
+            dirbar = -1 ;
+        }else if (key == 'right') {
+            dirbar = 1 ;
+        } ;
+        if (key == 'sacar') {
+            startGame()
+        }
+    }) ;
+    //temporary touch events
+
+
+
     document.addEventListener('keydown',function(e) {
         key = e.keyCode;
         if (key == 37) {

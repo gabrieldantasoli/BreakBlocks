@@ -194,6 +194,16 @@ body{
 #blocks > div{
     position: absolute;
 }
+#tempory{
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+#tempory div{
+    padding: 1rem;
+    background-color: black;
+    color: white;
+}
 
 @media (orientation:portrait) {
     #game{
