@@ -203,7 +203,6 @@ body{
     padding: 1rem;
     background-color: black;
     color: white;
-    pointer-events: none;
 }
 
 @media (orientation:portrait) {
