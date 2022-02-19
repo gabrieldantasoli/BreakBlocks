@@ -29,45 +29,38 @@ var posboly , posbolx , widthbol , heightbol , colorbol , velbol , dirbolx , dir
 // Starts Select game level
 var active = document.querySelectorAll('.active') ;
 
-active.forEach(item => item.addEventListener('click',changeActive));
+active.forEach(item => item.addEventListener('click',changeActive)) ;    
 
 function changeActive(e) {
     active.forEach(item => item.classList.remove('play')) ;
-    let element = e.target.classList;
-    let clasname = ''
-    element.forEach(item => clasname += '.'+item)
-    element = clasname
-    if (document.querySelector(`${element}`).length > 0) {
-        document.querySelector(`${element}`).removeChild(document.querySelector(`${element}>.fas.fa-lock`)) ;
-    } ;
-    document.querySelector(`${element}`).classList.add('play') ;
+    let clas = '' ; 
+    e.target.classList.forEach(item => clas += `.${item}`)
+    document.querySelector(`${clas}`).classList.add('play') ;
 } ;
 
 // Ends select game level
 
 // game starts
 function controlbar() {
-    //if (playing) {
-        posbarx += velbar * dirbar ;
+    posbarx += velbar * dirbar ;
+    if (withbol) {
+        posbolx = posbarx
+    } ;
+    if (posbarx <= barWidth/2) {
+        posbarx = barWidth/2 ;
         if (withbol) {
-            posbolx = posbarx
+            posbolx = barWidth/2 ;
         } ;
-        if (posbarx <= barWidth/2) {
-            posbarx = barWidth/2 ;
-            if (withbol) {
-                posbolx = barWidth/2 ;
-            } ;
-        }else if (posbarx > 100-(barWidth/2)) {
-            posbarx = 100-(barWidth/2) ;
-            if (withbol) {
-                posbolx = 100-(barWidth/2) ;
-            } ;
-        } ;
-        bar.style.left = posbarx+'%' ;
+    }else if (posbarx > 100-(barWidth/2)) {
+        posbarx = 100-(barWidth/2) ;
         if (withbol) {
-            bol.style.left = posbolx+'%' ;
+            posbolx = 100-(barWidth/2) ;
         } ;
-    //} ;
+    } ;
+    bar.style.left = posbarx+'%' ;
+    if (withbol) {
+        bol.style.left = posbolx+'%' ;
+    } ;
 } ;
 
 function controlbol() {
@@ -90,7 +83,7 @@ function controlbol() {
         replacebar() ;
         replacelifes() ;
         playing = false ;
-    } ;
+    } ;                               
 
     //Breaking blocks
     if (posboly+heightbol >= 50) {
@@ -108,7 +101,7 @@ function controlbol() {
                     dirbolx *= -1
                     blocks -= 1
                     break
-                }else if (posbolx+widthbol/2 >= parseInt(divs[i].style.left.replace('%','')) && posbolx-widthbol/2 <= parseInt(divs[i].style.left.replace('%',''))+10) {
+                }else if (posbolx+widthbol/2 >= parseInt(divs[i].style.left.replace('%','')) &&  posbolx-widthbol/2 <= parseInt(divs[i].style.left.replace('%',''))+10) {
                     blockdiv.removeChild(divs[i])
                     dirboly *= -1
                     blocks -= 1
@@ -143,7 +136,15 @@ function game() {
         frames = requestAnimationFrame(game) ;
     }else{
         levels += 1 ;
-    }
+        let divs = document.querySelectorAll('#levels div') ;
+        divs[levels].classList.add('active') ;
+        active = document.querySelectorAll('.active') ;
+        active.forEach(item => item.addEventListener('click',changeActive)) ;
+        document.querySelector('#visuallevel').textContent = levels + 1 ;
+        document.querySelector('#gamesection').style.display = 'none' ;
+        document.querySelector('.ps p:nth-child(1)').textContent = 'Congratulations , you won .' ;
+        document.querySelector('#popup').style.top = '0' ;
+    }                         
 } ;
 
 function replacebol() {
@@ -199,8 +200,7 @@ function start() {
         setdificuty() ;
     } ;
 
-
-    //temporary touch events
+    //touch events
     document.getElementById('left').addEventListener('touchend',function() {
         dirbar = 0 ;
     }) ;
@@ -220,9 +220,7 @@ function start() {
             startGame()
         }
     }) ;
-    //temporary touch events
-
-
+    //touch events ends
 
     document.addEventListener('keydown',function(e) {
         key = e.keyCode;
@@ -279,7 +277,7 @@ function startGame() {
         withbol = false ;
         playing = true ;
     }else if (withbol) {
-        alert('voce perdeu!')
+
     } ;
     
 } ;
@@ -319,4 +317,8 @@ document.getElementById('startlevels').addEventListener('click', function() {
     document.querySelector('#gamelevels').style.display = 'none' ;
     document.querySelector('#gamesection').style.display = 'flex' ;
     start() ;
+}) ;
+document.querySelector('#closepopup').addEventListener('click',function() {
+    document.querySelector('#popup').style.top = '-100vh' ;
+    document.querySelector('#gamelevels').style.display='flex' ;
 }) ;
