@@ -61,7 +61,7 @@ body{
 
 #gamelevels{
     margin-top: 2rem;
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -88,7 +88,7 @@ body{
     width: 90%;
     gap: 2rem;padding: 2rem;
 }
-#start{
+#startlevels{
     transition: .3s;
     margin-top: 1rem;
     padding: .5rem 1rem;
@@ -98,7 +98,7 @@ body{
     background-color: var(--backdark);
     font-size: 2rem;
 }
-#start:hover{
+#startlevels:hover{
     background-color: var(--white);
     color: var(--black);
 }
@@ -154,7 +154,7 @@ body{
 }
 #gamesection{
     margin-top: 2rem;
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
 }
@@ -196,14 +196,71 @@ body{
 }
 #tempory{
     display: flex;
+    align-items: center;
+    justify-content: space-between;
     gap: 2rem;
     margin-bottom: 1rem;
 }
-#tempory div{
-    padding: 1rem;
-    background-color: black;
-    color: white;
+#mobilestart #start{
+    position: absolute;
+    top: -27%;left: 0;
+    border-radius: 50%;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
 }
+#mobilestart{
+    width: 20vw;
+    max-width: 60px;
+    max-height: 60px;
+    height: 20vw;
+    border-radius: 50%;
+    background-color: var(--backlight);
+    position: relative;
+}
+#mobilestart .bar{
+    position: absolute;
+    top: 60%;left: 50%;
+    transform: translateX(-50%);
+    border-radius: 30px;
+    width: 80%;
+    height: 15%;
+    background-color: var(--backdark);
+}
+#mobilestart .bol{
+    position: absolute;
+    top: 25%;left: 50%;
+    transform: translateX(-50%);
+    width: 30%;
+    height: 30%;
+    border-radius: 50%;
+    background-color: var(--backdark);
+}
+#mobilestart .risk{
+    width: 20%;
+    height: 20%;
+    background-color: #D4553F;
+    opacity: 0.7;
+}
+#mobilestart .risk.one{
+    position: absolute;
+    top: 38%;left: 20%;
+    clip-path: polygon(0 10%, 90% 100%, 100% 90%, 10% 0);
+    
+}
+#mobilestart .risk.two{
+    position: absolute;
+    top: 38%;left: 60%;
+    clip-path: polygon(0 90%, 10% 100%, 100% 10%, 90% 0);
+}
+#tempory button i{
+    font-size: 3rem;
+    padding: 0.5rem;
+    background-color: var(--backlight);
+    color: var(--backdark);
+}
+
 
 @media (orientation:portrait) {
     #game{

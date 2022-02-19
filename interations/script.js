@@ -13,6 +13,7 @@ var blockdiv = document.querySelector('#blocks') ;
 var checked ;
 var revertdir ;
 var listblocks = [] ;
+var levels = 0;
 
 //velocity
 var velbar ,dirbar ;
@@ -84,6 +85,7 @@ function controlbol() {
         dirboly *= -1 ;
     }else if (posboly <= 0 && playing) {
         lifes -= 1 ;
+        document.getElementById('mobilestart').style.display = 'block' ;
         replacebol() ;
         replacebar() ;
         replacelifes() ;
@@ -140,7 +142,7 @@ function game() {
     if (blocks > 0) {
         frames = requestAnimationFrame(game) ;
     }else{
-        alert('você ganhou!')
+        levels += 1 ;
     }
 } ;
 
@@ -192,6 +194,11 @@ function start() {
         dirbar = 0 ;
     }) ;
 
+    //setting dificuty
+    if (levels > 0) {
+        setdificuty() ;
+    } ;
+
 
     //temporary touch events
     document.getElementById('left').addEventListener('touchend',function() {
@@ -208,7 +215,8 @@ function start() {
         }else if (key == 'right') {
             dirbar = 1 ;
         } ;
-        if (key == 'sacar') {
+        if (key == 'start') {
+            document.getElementById('mobilestart').style.display = 'none' ;
             startGame()
         }
     }) ;
@@ -224,6 +232,7 @@ function start() {
             dirbar = 1 ;
         } ;
         if (key == 13) {
+            document.getElementById('mobilestart').style.display = 'none' ;
             startGame()
         }
     }) ;
@@ -232,6 +241,37 @@ function start() {
     playing = true ;
     game() ;
 } ;
+
+function setdificuty() {
+    switch (levels) {
+        case 1:
+
+            break
+        case 2:
+
+            break
+        case 3:
+
+            break
+        case 4:
+
+            break
+        case 5:
+
+            break
+        case 6:
+
+            break
+        case 7:
+
+            break
+        case 8:
+
+            break
+        default:
+            alert('Error ! Please reload the site .')
+    }
+}
 
 function startGame() {
     if (lifes > 0 && withbol) {
@@ -275,4 +315,8 @@ function setBlocks() {
 } ;
 
 // ends setting the blocks
-start()
+document.getElementById('startlevels').addEventListener('click', function() {
+    document.querySelector('#gamelevels').style.display = 'none' ;
+    document.querySelector('#gamesection').style.display = 'flex' ;
+    start() ;
+}) ;
