@@ -199,6 +199,8 @@ body{
     align-items: center;
     justify-content: space-between;
     gap: 2rem;
+    width: 80%;
+    max-width: 500px;
     margin-bottom: 1rem;
 }
 #mobilestart #start{
@@ -345,6 +347,24 @@ body{
 }
 #popup .blockwin:nth-child(13) {
     top: 0;left: 0;
+}
+#bar1{
+    position: absolute;
+    display: none;
+    top: 65%;
+    left: 0%;
+    width: 15%;
+    height: 2%;
+    background-color: var(--backlight);
+}
+#bar2{
+    display: none;
+    position: absolute;
+    top: 75%;
+    left: 85%;
+    width: 15%;
+    height: 2%;
+    background-color: var(--backlight);
 }
 
 
