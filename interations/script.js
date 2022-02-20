@@ -14,6 +14,10 @@ var checked ;
 var revertdir ;
 var listblocks = [] ;
 var levels = 0;
+var bar1 = document.querySelector('#bar1') ;
+var bar2 = document.querySelector('#bar2') ;
+var vellevelbars1 , vellevelbars2 ;
+var poslevelbars1 , poslevelbars2;
 
 //velocity
 var velbar ,dirbar ;
@@ -22,7 +26,7 @@ var velbar ,dirbar ;
 var barWidth , posbarx ;
 
 // boll
-var posboly , posbolx , widthbol , heightbol , colorbol , velbol , dirbolx , dirboly ;
+var posboly , posbolx , widthbol , heightbol , colorbol , velbol , dirbolx , dirboly ,difvelbol;
 
 // Ends variables
 
@@ -83,20 +87,72 @@ function controlbol() {
         replacebar() ;
         replacelifes() ;
         playing = false ;
-    } ;                               
+    } ;        
+    // Bar level 1 --> colisions and movimentation
+    if (document.querySelector('.play').getAttribute('data-level') >= 1) {
+      if (poslevelbars1 < 0) {
+        vellevelbars1 *= -1 ;
+      }else if (poslevelbars1 >= 85) {
+        vellevelbars1 *= -1 ;
+      }
+      if (posboly >= 30 && posboly <= 33 && posbolx+widthbol/2 >= poslevelbars1 && posbolx+widthbol/2 <= poslevelbars1+1){
+        if (dirbolx == 0) {
+          dirbolx = -1 ;
+        }else {
+          dirbolx *= -1 ;
+        }
+      }else if (posboly >= 30 && posboly <= 33 && posbolx-widthbol/2 <= poslevelbars1+15 && posbolx-widthbol/2 >= poslevelbars1+14){
+        if (dirbolx == 0) {
+          dirbolx = 1 ;
+        }else {
+          dirbolx *= -1 ;
+        }
+      }else if (posboly >= 30 && posboly <= 35 && posbolx+widthbol/2 >= poslevelbars1 && posbolx-widthbol/2 <= poslevelbars1+15) {
+        dirboly *= -1 ;
+      }
+    
+      poslevelbars1 += vellevelbars1 ;
+      bar1.style.left = poslevelbars1+'%' ;
+    } ;
+    
+    
+    if (document.querySelector('.play').getAttribute('data-level') >= 2) {
+      if (poslevelbars2 < 0) {
+        vellevelbars2 *= -1 ;
+      }else if (poslevelbars2 > 85) {
+        vellevelbars2 *= -1 ;
+      }
+      if (posboly >= 20  && posboly <= 23 && posbolx+widthbol/2 >= poslevelbars2 && posbolx+widthbol/2 <= poslevelbars2+1){
+        if (dirbolx == 0) {
+          dirbolx = -1 ;
+        }else {
+          dirbolx *= -1 ;
+        }
+      }else if (posboly >= 20 && posboly <= 23 && posbolx-widthbol/2 <= poslevelbars2+15 && posbolx-widthbol/2 >= poslevelbars2+14){
+        if (dirbolx == 0) {
+          dirbolx = 1 ;
+        }else {
+          dirbolx *= -1 ;
+        }
+      }else if (posboly >= 20 && posboly <= 25 && posbolx+widthbol/2 >= poslevelbars2 && posbolx-widthbol/2 <= poslevelbars2+15) {
+        dirboly *= -1 ;
+      }
+    
+      poslevelbars2 -= vellevelbars2 ;
+      bar2.style.left = poslevelbars2+'%' ;
+    } ;
 
     //Breaking blocks
     if (posboly+heightbol >= 50) {
         let divs = document.querySelectorAll('#blocks div') ;
         for (var i = 0;i<blocks;i++) {
             if (posboly+heightbol >= 100-parseInt(divs[i].style.top.replace('%','')/2+5) && posboly <= 100-parseInt(divs[i].style.top.replace('%','')/2)) {
-                if (Math.floor(posbolx+widthbol/2) == parseInt(divs[i].style.left.replace('%',''))) {
+                  if (Math.floor(posbolx-widthbol/2) == parseInt(divs[i].style.left.replace('%',''))+10) {
                     blockdiv.removeChild(divs[i])
                     dirbolx *= -1
                     blocks -= 1
                     break
-                }
-                else if (Math.floor(posbolx-widthbol/2) == parseInt(divs[i].style.left.replace('%',''))+10) {
+                }else if (Math.floor(posbolx+widthbol/2) == parseInt(divs[i].style.left.replace('%',''))) {
                     blockdiv.removeChild(divs[i])
                     dirbolx *= -1
                     blocks -= 1
@@ -135,11 +191,13 @@ function game() {
     if (blocks > 0) {
         frames = requestAnimationFrame(game) ;
     }else{
+      if (parseInt(document.querySelector('.play').getAttribute('data-level'))+1 == document.querySelectorAll('.active').length) {
         levels += 1 ;
         let divs = document.querySelectorAll('#levels div') ;
         divs[levels].classList.add('active') ;
         active = document.querySelectorAll('.active') ;
         active.forEach(item => item.addEventListener('click',changeActive)) ;
+      } ;
         document.querySelector('#visuallevel').textContent = levels + 1 ;
         document.querySelector('#gamesection').style.display = 'none' ;
         document.querySelector('.ps p:nth-child(1)').textContent = 'Congratulations , you won .' ;
@@ -150,7 +208,7 @@ function game() {
 function replacebol() {
     posbolx = 50 ;
     posboly = 3 ;
-    velbol = 1 ;
+    velbol = difvelbol ;
     dirbolx = 0 ;
     dirboly = 0 ;
     widthbol = 3 ;
@@ -180,7 +238,12 @@ function replacelifes() {
 //Start variables
 
 function start() {
-    dirboly = 0 ;
+    document.querySelectorAll('.hearts .fa-heart').forEach(item => item.style.color = 'red') ;         
+    document.querySelector('#mobilestart').style.display = 'flex' ;
+    poslevelbars1 = 0 ;
+    poslevelbars2 = 85 ;
+    
+    dirboly = 0 ;     
     dirbolx = 0 ;
     withbol = true ;
     blocks = 100 ;
@@ -194,11 +257,6 @@ function start() {
     document.addEventListener('keyup',function() {
         dirbar = 0 ;
     }) ;
-
-    //setting dificuty
-    if (levels > 0) {
-        setdificuty() ;
-    } ;
 
     //touch events
     document.getElementById('left').addEventListener('touchend',function() {
@@ -215,7 +273,7 @@ function start() {
         }else if (key == 'right') {
             dirbar = 1 ;
         } ;
-        if (key == 'start') {
+        if (key ==  'start') {
             document.getElementById('mobilestart').style.display = 'none' ;
             startGame()
         }
@@ -237,16 +295,27 @@ function start() {
     replacebol() ;
     replacebar() ;
     playing = true ;
+    setdificuty() ;
     game() ;
 } ;
 
 function setdificuty() {
     switch (levels) {
+        case 0:
+            velbol = 0.8 ;
+            difvelbol = 0.8 ;
+            break
         case 1:
-
+            document.getElementById('bar1').style.display = 'block' ;
+            vellevelbars1 = .2
+            difvelbol = 0.8 ;
+            velbol = 0.8 ;
             break
         case 2:
-
+            document.getElementById('bar2').style.display = 'block' ;
+            vellevelbars2 = .2
+            difvelbol = 0.8 ;
+            velbol = 0.8 ;
             break
         case 3:
 
