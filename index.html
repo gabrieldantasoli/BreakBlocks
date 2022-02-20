@@ -7,7 +7,7 @@
     <title>Break Blocks</title>
 
     <!-- Custom css link -->
-    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style.css">
 
     <!-- font awesome cdn link-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
@@ -50,38 +50,38 @@
     <section id="gamelevels">
         <h2>levels</h2>
         <div id="levels">
-            <div class="active game g0 play">
+            <div class="active game g0 play" data-level=0>
                 1
             </div>
-            <div class="game g1">
+            <div class="game g1" data-level=1>
                 <i class="fas fa-lock"></i>
                 2
             </div>
-            <div class="game g2">
+            <div class="game g2" data-level=2>
                 <i class="fas fa-lock"></i>
                 3
             </div>
-            <div class="game g3">
+            <div class="game g3" data-level=3>
                 <i class="fas fa-lock"></i>
                 4
             </div>
-            <div class="game g4">
+            <div class="game g4" data-level=4>
                 <i class="fas fa-lock"></i>
                 5
             </div>
-            <div class="game g5">
+            <div class="game g5" data-level=5>
                 <i class="fas fa-lock"></i>
                 6
             </div>
-            <div class="game g6">
+            <div class="game g6" data-level=6>
                 <i class="fas fa-lock"></i>
                 7
             </div>
-            <div class="game g7">
+            <div class="game g7" data-level=7>
                 <i class="fas fa-lock"></i>
                 8
             </div>
-            <div class="game g8">
+            <div class="game g8" data-level=7>
                 <i class="fas fa-lock"></i>
                 9
             </div>
@@ -100,6 +100,9 @@
             <i class="fas fa-heart"></i>
         </div>
         <div id="game">
+            <div id="bar1"></div>
+            <div id="bar2"></div>
+            
             <div id="blocks">
             
             </div>
@@ -123,6 +126,6 @@
     <!-- Game ends -->
     
 
-    <script src="interations/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
