@@ -87,6 +87,10 @@ function controlbol() {
         replacebol() ;
         replacebar() ;
         replacelifes() ;
+        if (lifes == 0) {
+            document.querySelector('.ps p:nth-child(1)').textContent = 'Sorry ! You lose.' ;
+            document.querySelector('#popup').style.top = '0' ;
+        } ;
         playing = false ;
     } ;        
     // Bar level 1 --> colisions and movimentation
@@ -210,9 +214,9 @@ function game() {
             controlbol() ;
         }
     } ;
-    if (blocks > 0) {
+    if (blocks > 0 && lifes > 0) {
         frames = requestAnimationFrame(game) ;
-    }else{
+    }else if (lifes > 0) {
       if (parseInt(document.querySelector('.play').getAttribute('data-level'))+1 == document.querySelectorAll('.active').length) {
         levels += 1 ;
         let divs = document.querySelectorAll('#levels div') ;
@@ -224,6 +228,7 @@ function game() {
         document.querySelector('#gamesection').style.display = 'none' ;
         document.querySelector('.ps p:nth-child(1)').textContent = 'Congratulations , you won .' ;
         document.querySelector('#popup').style.top = '0' ;
+        frames=cancelAnimationFrame(game)
     }                         
 } ;
 
@@ -235,6 +240,7 @@ function replacebol() {
     dirboly = 0 ;
     widthbol = 3 ;
     heightbol = 3 ;
+    velbol = difvelbol
     withbol = true ;
     bol.style.left = posbolx+'%' ;
     bol.style.bottom = posboly+'%' ;
@@ -260,12 +266,14 @@ function replacelifes() {
 //Start variables
 
 function start() {
+    document.querySelectorAll('#blocks div').forEach(item => {
+        document.querySelector('#blocks').removeChild(item) ;
+    }) ;
     document.querySelectorAll('.hearts .fa-heart').forEach(item => item.style.color = 'red') ;         
     document.querySelector('#mobilestart').style.display = 'flex' ;
     poslevelbars1 = 0 ;
     poslevelbars2 = 85 ;
-    
-    dirboly = 0 ;     
+    dirboly = 0 ;
     dirbolx = 0 ;
     withbol = true ;
     blocks = 100 ;
@@ -374,10 +382,7 @@ function startGame() {
         dirboly = 1 ;
         withbol = false ;
         playing = true ;
-    }else if (withbol) {
-
-    } ;
-    
+    }
 } ;
 
 // Starts Setting the blocks
