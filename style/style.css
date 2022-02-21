@@ -366,7 +366,34 @@ body{
     height: 2%;
     background-color: var(--backlight);
 }
-
+#defeatblocks1{
+    position: absolute;
+    top: 50%;left: 0;
+    height: 2%;
+    width: 100%;
+    background-color: transparent;
+}
+#defeatblocks1 div{
+    position: absolute;
+    background-color: var(--backlight);
+    width: 10%;
+    height: 100%;
+    outline: 1px solid var(--black);
+}
+#defeatblocks2{
+    position: absolute;
+    top: 70%;left: 0;
+    height: 2%;
+    background-color: transparent;
+    width: 100%;
+}
+#defeatblocks2 div{
+    position: absolute;
+    background-color: var(--backlight);
+    width: 10%;
+    height: 100%;
+    outline: 1px solid var(--black);
+}
 
 @media (orientation:portrait) {
     #game{

@@ -18,6 +18,7 @@ var bar1 = document.querySelector('#bar1') ;
 var bar2 = document.querySelector('#bar2') ;
 var vellevelbars1 , vellevelbars2 ;
 var poslevelbars1 , poslevelbars2;
+var defeatblocks1 , defeatblocks2;
 
 //velocity
 var velbar ,dirbar ;
@@ -114,8 +115,6 @@ function controlbol() {
       poslevelbars1 += vellevelbars1 ;
       bar1.style.left = poslevelbars1+'%' ;
     } ;
-    
-    
     if (document.querySelector('.play').getAttribute('data-level') >= 2) {
       if (poslevelbars2 < 0) {
         vellevelbars2 *= -1 ;
@@ -140,6 +139,29 @@ function controlbol() {
     
       poslevelbars2 -= vellevelbars2 ;
       bar2.style.left = poslevelbars2+'%' ;
+    } ;
+    if (document.querySelector('.play').getAttribute('data-level') >= 3) {
+        let divs = document.querySelectorAll('#defeatblocks1 div') ;
+        for (var i = 0 ; i < defeatblocks1 ; i++) {
+            if ((posboly+heightbol >= 48 && posboly <= 50) && (posbolx+widthbol/2 >= parseInt(divs[i].style.left.replace('%','')) && posbolx-widthbol/2 <= parseInt(divs[i].style.left.replace('%',''))+10)) {
+                dirboly*=-1
+                document.querySelector('#defeatblocks1').removeChild(divs[i]) ;
+                defeatblocks1 -= 1 ;
+                break ;
+            } ;
+        } ;
+    } ;
+    if (document.querySelector('.play').getAttribute('data-level') >= 4) {
+        let divs = document.querySelectorAll('#defeatblocks2 div') ;
+        for (var i = 0 ; i < defeatblocks2 ; i++) {
+            if ((posboly+heightbol >= 28 && posboly <= 30) && (posbolx+widthbol/2 >= parseInt(divs[i].style.left.replace('%','')) && posbolx-widthbol/2 <= parseInt(divs[i].style.left.replace('%',''))+10)) {
+                dirboly*=-1
+                document.querySelector('#defeatblocks2').removeChild(divs[i]) ;
+                defeatblocks2 -= 1 ;
+                break ;
+            } ;
+        } ;
+
     } ;
 
     //Breaking blocks
@@ -318,21 +340,28 @@ function setdificuty() {
             velbol = 0.8 ;
             break
         case 3:
-
+            defeatblocks1 = 10 ;
+            vellevelbars2 = .2
+            difvelbol = 0.8 ;
+            velbol = 0.8 ;
+            setdefeatblocks(1) ;
             break
         case 4:
-
+            defeatblocks1 = 10 ;
+            defeatblocks2 = 10 ;
+            vellevelbars2 = .2
+            difvelbol = 0.8 ;
+            velbol = 0.8 ;
+            setdefeatblocks(1) ;
+            setdefeatblocks(2) ;
             break
         case 5:
-
+            
             break
         case 6:
 
             break
         case 7:
-
-            break
-        case 8:
 
             break
         default:
@@ -352,6 +381,20 @@ function startGame() {
 } ;
 
 // Starts Setting the blocks
+
+function setdefeatblocks(whatblocks) {
+    let defeatblocks ;
+    if (whatblocks == 1) {
+        defeatblocks = document.querySelector('#defeatblocks1') ;
+    }else if (whatblocks == 2) {
+        defeatblocks = document.querySelector('#defeatblocks2') ;
+    }
+    for (var i =0 ; i < 10 ; i++) {
+        let newDiv = document.createElement('div') ;
+        newDiv.style.left = 10 * i+'%';
+        defeatblocks.appendChild(newDiv) ;      
+    }
+} ;
 
 function setBlocks() {
     let built = 0 ;
