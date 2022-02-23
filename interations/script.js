@@ -212,7 +212,7 @@ function game() {
     if (playing) {
         if (!withbol) {
             controlbol() ;
-        }
+        } ;
     } ;
     if (blocks > 0 && lifes > 0) {
         frames = requestAnimationFrame(game) ;
@@ -363,15 +363,6 @@ function setdificuty() {
             setdefeatblocks(1) ;
             setdefeatblocks(2) ;
             break
-        case 5:
-            
-            break
-        case 6:
-
-            break
-        case 7:
-
-            break
         default:
             alert('Error ! Please reload the site .')
     }
@@ -438,4 +429,11 @@ document.getElementById('startlevels').addEventListener('click', function() {
 document.querySelector('#closepopup').addEventListener('click',function() {
     document.querySelector('#popup').style.top = '-100vh' ;
     document.querySelector('#gamelevels').style.display='flex' ;
+}) ;
+
+var disp = document.querySelector('#disp') ;
+disp.addEventListener('click',function () {
+    disp.classList.toggle('fa-mobile') ;
+    disp.classList.toggle('fa-desktop') ;
+    document.querySelector('#tempory').classList.toggle('active') ;
 }) ;
